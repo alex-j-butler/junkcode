@@ -1,4 +1,4 @@
-local dns_api = require('./dns_lib')
+local dns_api = require('dns')
 local component = require('component')
 local shell = require('shell')
 
