@@ -51,7 +51,10 @@ end
 running = true
 
 initTables()
-print(libraries)
+
+for k, v in pairs(libraries) do
+  print(k .. ": " .. v)
+end
 
 if not modem.isOpen(20) then
   print("Opening port 20")
