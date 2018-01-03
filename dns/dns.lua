@@ -21,7 +21,7 @@ end
 
 if args[1] == "get" then
   local name = args[2]
-  address, success = dns_api.get(name)
+  address, success = dns_api.get(name, 5)
   if success then
     print(name .. " has address " .. address)
   else
@@ -30,7 +30,7 @@ if args[1] == "get" then
   elseif args[1] == "set" then
     local name = args[2]
     local address = args[3]
-    success = dns_api.put(name, address)
+    success = dns_api.put(name, address, 5)
     if success then
       print("Record successfully added")
     else

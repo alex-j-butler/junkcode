@@ -9,7 +9,9 @@ math.randomseed(os.time())
 
 local api = {}
 
-function api.get(name)
+function api.get(name, timeout)
+  timeout = timeout or 5
+
   -- Generate a random reply port
   local port = math.random(1024, 4096)
   while modem.isOpen(port) do
@@ -19,7 +21,7 @@ function api.get(name)
   modem.open(port)
   modem.broadcast(1, serialise.serialize({ action = "get", name = name, reply_port = port }))
 
-  local msg_name, _, sender, _, _, data = event.pull("modem_message")
+  local msg_name, _, sender, _, _, data = event.pull(timeout, "modem_message")
   resp_data = serialise.unserialize(data)
 
   modem.close(port)
@@ -28,7 +30,9 @@ function api.get(name)
 
 end
 
-function api.put(name, address)
+function api.put(name, address, timeout)
+  timeout = timeout or 5
+
   -- Generate a random reply port
   local port = math.random(1024, 4096)
   while modem.isOpen(port) do
@@ -38,7 +42,7 @@ function api.put(name, address)
   modem.open(port)
   modem.broadcast(1, serialise.serialize({ action = "put", name = name, address = address, reply_port = port }))
 
-  local msg_name, _, sender, _, _, data = event.pull("modem_message")
+  local msg_name, _, sender, _, _, data = event.pull(timeout, "modem_message")
   resp_data = serialise.unserialize(data)
 
   modem.close(port)
