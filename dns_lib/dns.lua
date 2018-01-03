@@ -22,6 +22,9 @@ function api.get(name, timeout)
   modem.broadcast(1, serialise.serialize({ action = "get", name = name, reply_port = port }))
 
   local msg_name, _, sender, _, _, data = event.pull(timeout, "modem_message")
+  if data == nil then
+    return nil, false
+  end
   resp_data = serialise.unserialize(data)
 
   modem.close(port)
