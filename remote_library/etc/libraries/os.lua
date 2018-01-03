@@ -8,4 +8,5 @@ function os.sleep(timeout)
   until computer.uptime() >= deadline
 end
 
+_G["os"] = os
 return os

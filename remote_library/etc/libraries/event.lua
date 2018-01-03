@@ -147,4 +147,5 @@ end
 
 event.push = computer.pushSignal
 
+_G["event"] = event
 return event
