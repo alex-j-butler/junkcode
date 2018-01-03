@@ -11,7 +11,7 @@ function initTables()
   if not fs.isDirectory('/etc') then fs.makeDirectory('/etc') end
   if fs.exists("/etc/libraries.cfg") then
     fileData = io.open("/etc/libraries.cfg")
-    libraries = serialise.unserialize(fileData:read())
+    libraries = serialise.unserialize(fileData:read("*a"))
     fileData:close()
   end
 end
@@ -36,7 +36,7 @@ function listen()
   end
 
   lib_file = io.open(file_location)
-  lib_data = lib_file:read()
+  lib_data = lib_file:read("*a")
   lib_file:close()
 
   if lib_data:len() < 8192 then
