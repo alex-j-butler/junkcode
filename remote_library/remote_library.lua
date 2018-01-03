@@ -24,8 +24,13 @@ function listen()
   local reply_port = msg.reply_port or 1
   local lib_name = msg.name
 
+  print("Requested library name: " .. lib_name)
+
   local file_location = libraries[lib_name]
+  print("Library location: " .. file_location)
   if file_location == nil then
+    print("Library not found")
+
     modem.send(sender, reply_port, serialise.serialize({ success = false }))
     return
   end
@@ -46,6 +51,7 @@ end
 running = true
 
 initTables()
+print(libraries)
 
 if not modem.isOpen(20) then
   print("Opening port 20")
