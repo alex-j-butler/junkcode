@@ -34,14 +34,14 @@ function listen()
     return
   end
 
-
-  print("Library location: " .. file_location)
   if file_location == nil then
     print("Library not found")
 
     modem.send(sender, reply_port, serialise.serialize({ success = false }))
     return
   end
+
+  print("Library location: " .. file_location)
 
   lib_file = io.open(file_location)
   lib_data = lib_file:read("*a")
