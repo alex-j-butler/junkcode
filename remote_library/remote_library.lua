@@ -26,7 +26,15 @@ function listen()
 
   print("Requested library name: " .. lib_name)
 
-  local file_location = libraries[lib_name]
+  local file_location, found = libraries[lib_name]
+  if found == false then
+    print("Library not found")
+    modem.send(sender, reply_port, serialise.serialize({ success = false }))
+
+    return
+  end
+
+
   print("Library location: " .. file_location)
   if file_location == nil then
     print("Library not found")
